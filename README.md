@@ -1,6 +1,6 @@
 # Foxtrip - Hệ Thống Đặt Và Quản Lý Tour Du Lịch
 
-[Tiếng Việt](README_vi.md) | [English](README_en.md)
+[Tiếng Việt](README.md) | [Tiếng Anh](./doc/README_en.md)
 
 ## Tổng quan hệ thống
 Foxtrip là hệ thống toàn diện hỗ trợ đặt và quản lý tour du lịch, bao gồm Backend REST API, Web Dashboard quản trị và ứng dụng di động Native Android dành cho khách hàng và hướng dẫn viên.

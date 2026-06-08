@@ -1,6 +1,6 @@
 # Foxtrip - Tour Booking And Management System
 
-[Tiếng Việt](README_vi.md) | [English](README_en.md)
+[Vietnamese](../README.md) | [English](README_en.md)
 
 ## System Overview
 Foxtrip is a comprehensive platform for booking and managing tours, featuring a REST API backend, a web administration dashboard, and a native Android mobile application designed for customers and tour guides.
@@ -11,7 +11,7 @@ The project is built on a Client-Server architecture:
 - **Web Frontend**: React 19 SPA (Single Page Application) for administrators to manage configurations and view metrics.
 - **Mobile Client**: Native Android application for customers to book tours and guides to handle check-ins.
 
-![Project Architecture](picture/architecture.png)
+![Project Architecture](../picture/architecture.png)
 
 ## Core Technologies
 - **Backend**: Java 21, Spring Boot 3.4.5, Spring Security (JWT, OAuth2 Google), Spring Data JPA, Liquibase, MapStruct.
@@ -28,14 +28,14 @@ The project is built on a Client-Server architecture:
 Below are the screenshots representing the main interfaces of the system:
 
 * **User Interface (User Mobile)**:
-  ![User Interface](screenshort/user_explore.png)
+  ![User Interface](../screenshort/user_explore.png)
 * **Administrator Dashboard (Web Dashboard)**:
-  ![Admin Interface](screenshort/dashboard.png)
+  ![Admin Interface](../screenshort/dashboard.png)
 * **Tour Guide Interface (Guide Mobile)**:
-  ![Guide Interface](screenshort/guide.png)
+  ![Guide Interface](../screenshort/guide.png)
 
 > [!NOTE]
-> All other detailed interface screenshots (e.g., Tour management, locations, orders, chatbot assistant, etc.) can be viewed in the [screenshort](screenshort) directory.
+> All other detailed interface screenshots (e.g., Tour management, locations, orders, chatbot assistant, etc.) can be viewed in the [screenshort](../screenshort) directory.
 
 ## Backend Module Structure
 - `foxtrip-app`: The main runnable Spring Boot application holding endpoints and global configurations.
@@ -63,12 +63,12 @@ Key entities include:
 To run the project, you must set up the following credentials, configuration files, and API keys:
 
 ### 1. Android Application:
-- **Mapbox SDK Downloads (`local.properties`)**: Provide your secret download token in `MAPBOX_DOWNLOADS_TOKEN` inside [android/local.properties](android/local.properties).
-- **Google Client ID & Mapbox Access Token (`config.xml`)**: Configure these inside [android/app/src/main/res/values/config.xml](android/app/src/main/res/values/config.xml).
-- **Google Services Configuration (`google-services.json`)**: Download from your Firebase Console and place it in the [android/app](android/app) folder.
+- **Mapbox SDK Downloads (`local.properties`)**: Provide your secret download token in `MAPBOX_DOWNLOADS_TOKEN` inside [android/local.properties](../android/local.properties).
+- **Google Client ID & Mapbox Access Token (`config.xml`)**: Configure these inside [android/app/src/main/res/values/config.xml](../android/app/src/main/res/values/config.xml).
+- **Google Services Configuration (`google-services.json`)**: Download from your Firebase Console and place it in the [android/app](../android/app) folder.
 
 ### 2. Backend Application:
-Set up the service integration API keys inside [backend/foxtrip-app/src/main/resources/application.yml](backend/foxtrip-app/src/main/resources/application.yml):
+Set up the service integration API keys inside [backend/foxtrip-app/src/main/resources/application.yml](../backend/foxtrip-app/src/main/resources/application.yml):
 - Google OAuth2 Client ID (`application.auth.google.client-id`)
 - Cloudinary Storage (`application.cloudinary` cloud-name, api-key, api-secret)
 - RSA JWT public/private key pairs (`jwt.public-key` and `jwt.private-key` as RS256 Base64/PEM)
@@ -81,9 +81,9 @@ Set up the service integration API keys inside [backend/foxtrip-app/src/main/res
 ---
 
 ## Links & Diagrams
-- **Database Schema/Script**: Detailed database design in [doc/db_design.md](doc/db_design.md) and Liquibase scripts in [changelog](backend/foxtrip-app/src/main/resources/config/liquibase/changelog).
+- **Database Schema/Script**: Detailed database design in [db_design.md](db_design.md) and Liquibase scripts in [changelog](../backend/foxtrip-app/src/main/resources/config/liquibase/changelog).
 - **Diagrams & Screenshots**:
-  - System Architecture: [architecture.png](picture/architecture.png)
-  - Main Thread flow: [main_thread.png](picture/main_thread.png)
-  - Directory containing all app screenshots: [screenshort](screenshort)
+  - System Architecture: [architecture.png](../picture/architecture.png)
+  - Main Thread flow: [main_thread.png](../picture/main_thread.png)
+  - Directory containing all app screenshots: [screenshort](../screenshort)
 - **API Documentation**: Interactive swagger documentations available at `http://<host>:8080/swagger-ui/index.html` (while backend is running) or via Docker container `swagger-ui` at `http://localhost:8083`.
