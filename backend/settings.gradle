@@ -1,0 +1,18 @@
+
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "foxtrip"
+
+include 'foxtrip-common'
+include 'foxtrip-user'
+include 'foxtrip-location'
+include 'foxtrip-tour'
+include 'foxtrip-cart'
+include 'foxtrip-order'
+include 'foxtrip-review'
+include 'foxtrip-app'

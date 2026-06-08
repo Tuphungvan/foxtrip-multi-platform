@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0500-orders-table" author="foxtrip">
+        <createTable tableName="orders">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="user_id" type="${uuidType}"/>
+            <column name="order_code" type="varchar(50)"><constraints nullable="false"/></column>
+            <column name="customer_name" type="varchar(255)"><constraints nullable="false"/></column>
+            <column name="customer_phone" type="varchar(50)"><constraints nullable="false"/></column>
+            <column name="customer_email" type="varchar(255)"><constraints nullable="false"/></column>
+            <column name="total_amount" type="decimal(15,2)"><constraints nullable="false"/></column>
+            <column name="status" type="varchar(50)" defaultValue="PENDING"><constraints nullable="false"/></column>
+            <column name="status_note" type="text"/>
+            <column name="vnpay_txn_ref" type="varchar(255)"/>
+            <column name="paid_at" type="timestamp"/>
+            <column name="expires_at" type="timestamp"><constraints nullable="false"/></column>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="orders" columnNames="order_code" constraintName="uk_orders_code"/>
+
+        <addForeignKeyConstraint
+            baseTableName="orders"
+            baseColumnNames="user_id"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            constraintName="fk_orders_users"
+            onDelete="SET NULL"/>
+
+        <sql>CREATE INDEX idx_orders_user_time ON orders(user_id, created_at);</sql>
+        <sql>CREATE INDEX idx_orders_status_time ON orders(status, created_at);</sql>
+        <sql>CREATE INDEX idx_orders_customer_email ON orders(customer_email);</sql>
+        <sql>CREATE INDEX idx_orders_expires_at ON orders(expires_at);</sql>
+    </changeSet>
+
+    <changeSet id="0500-order-items-table" author="foxtrip">
+        <createTable tableName="order_items">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="order_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="tour_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="quantity" type="int"><constraints nullable="false"/></column>
+            <column name="tour_name_at_time" type="varchar(255)"><constraints nullable="false"/></column>
+            <column name="start_date_at_time" type="timestamp"><constraints nullable="false"/></column>
+            <column name="end_date_at_time" type="timestamp"><constraints nullable="false"/></column>
+            <column name="thumbnail_at_time" type="varchar(512)"><constraints nullable="false"/></column>
+            <column name="price_at_time" type="decimal(15,2)"><constraints nullable="false"/></column>
+            <column name="discount_at_time" type="decimal(15,2)" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="final_price" type="decimal(15,2)"><constraints nullable="false"/></column>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="order_items"
+            baseColumnNames="order_id"
+            referencedTableName="orders"
+            referencedColumnNames="id"
+            constraintName="fk_order_items_orders"
+            onDelete="RESTRICT"/>
+
+        <addForeignKeyConstraint
+            baseTableName="order_items"
+            baseColumnNames="tour_id"
+            referencedTableName="tours"
+            referencedColumnNames="id"
+            constraintName="fk_order_items_tours"
+            onDelete="RESTRICT"/>
+
+        <sql>CREATE INDEX idx_order_items_order ON order_items(order_id);</sql>
+        <sql>CREATE INDEX idx_order_items_tour ON order_items(tour_id);</sql>
+        <sql>CREATE INDEX idx_order_items_checkin ON order_items(order_id, tour_id);</sql>
+    </changeSet>
+
+    <changeSet id="0500-order-addons-table" author="foxtrip">
+        <createTable tableName="order_addons">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="order_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="tour_addon_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="quantity" type="int" defaultValueNumeric="1"><constraints nullable="false"/></column>
+            <column name="price_at_time" type="decimal(15,2)"><constraints nullable="false"/></column>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="order_addons"
+            baseColumnNames="order_id"
+            referencedTableName="orders"
+            referencedColumnNames="id"
+            constraintName="fk_order_addons_orders"
+            onDelete="RESTRICT"/>
+
+        <addForeignKeyConstraint
+            baseTableName="order_addons"
+            baseColumnNames="tour_addon_id"
+            referencedTableName="tour_addons"
+            referencedColumnNames="id"
+            constraintName="fk_order_addons_tour_addons"
+            onDelete="RESTRICT"/>
+
+        <sql>CREATE INDEX idx_order_addons_order ON order_addons(order_id);</sql>
+    </changeSet>
+
+    <changeSet id="0500-refunds-table" author="foxtrip">
+        <createTable tableName="refunds">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="${uuidType}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="decimal(15,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar(50)" defaultValue="PENDING">
+                <constraints nullable="false"/>
+            </column>
+            <column name="reason" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="processed_by" type="${uuidType}"/>
+            <column name="processed_at" type="timestamp"/>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseTableName="refunds"
+            baseColumnNames="order_id"
+            referencedTableName="orders"
+            referencedColumnNames="id"
+            constraintName="fk_refunds_orders"
+            onDelete="RESTRICT"/>
+
+        <addForeignKeyConstraint
+            baseTableName="refunds"
+            baseColumnNames="processed_by"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            constraintName="fk_refunds_users"
+            onDelete="SET NULL"/>
+
+        <sql>CREATE INDEX idx_refunds_order ON refunds(order_id);</sql>
+        <sql>CREATE INDEX idx_refunds_processor ON refunds(processed_by);</sql>
+    </changeSet>
+
+    <changeSet id="0501-orders-user-not-null" author="foxtrip">
+        <preConditions onFail="MARK_RAN">
+            <columnExists tableName="orders" columnName="user_id"/>
+        </preConditions>
+
+        <sql>
+            UPDATE orders
+            SET user_id = (SELECT id FROM users LIMIT 1)
+            WHERE user_id IS NULL;
+        </sql>
+
+        <addNotNullConstraint
+                tableName="orders"
+                columnName="user_id"
+                columnDataType="${uuidType}"/>
+    </changeSet>
+</databaseChangeLog>

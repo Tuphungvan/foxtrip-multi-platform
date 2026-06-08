@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0901-revenue-fake-data-v2" author="foxtrip">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="revenue_reports"/>
+        </preConditions>
+
+        <!-- Clean up previous fake data if any (using the same year/month constraints) -->
+        <delete tableName="revenue_reports">
+            <where>year = 2025 OR year = 2026</where>
+        </delete>
+
+        <!-- May 2025 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="5"/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="revenue_tour" valueNumeric="380000000"/>
+            <column name="revenue_addon" valueNumeric="40000000"/>
+            <column name="revenue_ads" valueNumeric="30000000"/>
+            <column name="total_revenue" valueNumeric="450000000"/>
+            <column name="total_orders" valueNumeric="120"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- June 2025 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="6"/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="revenue_tour" valueNumeric="460000000"/>
+            <column name="revenue_addon" valueNumeric="50000000"/>
+            <column name="revenue_ads" valueNumeric="35000000"/>
+            <column name="total_revenue" valueNumeric="545000000"/>
+            <column name="total_orders" valueNumeric="145"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- July 2025 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="7"/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="revenue_tour" valueNumeric="550000000"/>
+            <column name="revenue_addon" valueNumeric="60000000"/>
+            <column name="revenue_ads" valueNumeric="45000000"/>
+            <column name="total_revenue" valueNumeric="655000000"/>
+            <column name="total_orders" valueNumeric="170"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- August 2025 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="8"/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="revenue_tour" valueNumeric="420000000"/>
+            <column name="revenue_addon" valueNumeric="45000000"/>
+            <column name="revenue_ads" valueNumeric="32000000"/>
+            <column name="total_revenue" valueNumeric="497000000"/>
+            <column name="total_orders" valueNumeric="135"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- September 2025 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="9"/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="revenue_tour" valueNumeric="340000000"/>
+            <column name="revenue_addon" valueNumeric="35000000"/>
+            <column name="revenue_ads" valueNumeric="25000000"/>
+            <column name="total_revenue" valueNumeric="400000000"/>
+            <column name="total_orders" valueNumeric="115"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- October 2025 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="10"/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="revenue_tour" valueNumeric="320000000"/>
+            <column name="revenue_addon" valueNumeric="32000000"/>
+            <column name="revenue_ads" valueNumeric="22000000"/>
+            <column name="total_revenue" valueNumeric="374000000"/>
+            <column name="total_orders" valueNumeric="110"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- November 2025 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="11"/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="revenue_tour" valueNumeric="300000000"/>
+            <column name="revenue_addon" valueNumeric="30000000"/>
+            <column name="revenue_ads" valueNumeric="20000000"/>
+            <column name="total_revenue" valueNumeric="350000000"/>
+            <column name="total_orders" valueNumeric="105"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- December 2025 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="12"/>
+            <column name="year" valueNumeric="2025"/>
+            <column name="revenue_tour" valueNumeric="400000000"/>
+            <column name="revenue_addon" valueNumeric="42000000"/>
+            <column name="revenue_ads" valueNumeric="30000000"/>
+            <column name="total_revenue" valueNumeric="472000000"/>
+            <column name="total_orders" valueNumeric="130"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- January 2026 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="1"/>
+            <column name="year" valueNumeric="2026"/>
+            <column name="revenue_tour" valueNumeric="510000000"/>
+            <column name="revenue_addon" valueNumeric="55000000"/>
+            <column name="revenue_ads" valueNumeric="40000000"/>
+            <column name="total_revenue" valueNumeric="605000000"/>
+            <column name="total_orders" valueNumeric="160"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- February 2026 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="2"/>
+            <column name="year" valueNumeric="2026"/>
+            <column name="revenue_tour" valueNumeric="440000000"/>
+            <column name="revenue_addon" valueNumeric="48000000"/>
+            <column name="revenue_ads" valueNumeric="35000000"/>
+            <column name="total_revenue" valueNumeric="523000000"/>
+            <column name="total_orders" valueNumeric="140"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- March 2026 -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="3"/>
+            <column name="year" valueNumeric="2026"/>
+            <column name="revenue_tour" valueNumeric="370000000"/>
+            <column name="revenue_addon" valueNumeric="38000000"/>
+            <column name="revenue_ads" valueNumeric="28000000"/>
+            <column name="total_revenue" valueNumeric="436000000"/>
+            <column name="total_orders" valueNumeric="125"/>
+            <column name="created_by" value="system"/>
+        </insert>
+
+        <!-- April 2026 (Current Month) -->
+        <insert tableName="revenue_reports">
+            <column name="id" valueComputed="public.uuid_generate_v7()"/>
+            <column name="month" valueNumeric="4"/>
+            <column name="year" valueNumeric="2026"/>
+            <column name="revenue_tour" valueNumeric="330000000"/>
+            <column name="revenue_addon" valueNumeric="34000000"/>
+            <column name="revenue_ads" valueNumeric="24000000"/>
+            <column name="total_revenue" valueNumeric="388000000"/>
+            <column name="total_orders" valueNumeric="115"/>
+            <column name="created_by" value="system"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

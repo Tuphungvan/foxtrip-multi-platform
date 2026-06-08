@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollDialog"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:background="@color/white"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_selected_province"
+            android:textColor="@color/big_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChooseProvince"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_selected_province"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/appMainColor"
+            app:strokeColor="@color/appMainColor"
+            app:strokeWidth="1dp"
+            app:cornerRadius="16dp" />
+
+        <!-- Categories -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_selected_category"
+            android:textColor="@color/big_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChooseCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_selected_category"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/appMainColor"
+            app:strokeColor="@color/appMainColor"
+            app:strokeWidth="1dp"
+            app:cornerRadius="16dp" />
+
+        <!-- Price range -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_range_price"
+            android:textColor="@color/big_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginTop="12dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                app:boxStrokeColor="@color/appMainColor"
+                app:boxBackgroundMode="outline"
+                android:background="@color/white"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                android:hint="@string/min_price">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPriceMin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/big_text_color"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <View
+                android:layout_width="16dp"
+                android:layout_height="wrap_content" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/appMainColor"
+                android:background="@color/white"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                android:hint="@string/max_price">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPriceMax"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/white"
+                    android:textColor="@color/big_text_color"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <!-- Date pickers -->
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tv_date"
+            android:textColor="@color/big_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnStartDate"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_start"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/appMainColor"
+                app:strokeColor="@color/appMainColor"
+                app:strokeWidth="1dp"
+                app:cornerRadius="16dp" />
+
+            <View android:layout_width="12dp" android:layout_height="wrap_content" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEndDate"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_end"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/appMainColor"
+                app:strokeColor="@color/appMainColor"
+                app:strokeWidth="1dp"
+                app:cornerRadius="16dp" />
+        </LinearLayout>
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_marginTop="28dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnClearFilter"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_delete"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/appMainColor"
+                app:strokeColor="@color/appMainColor"
+                app:strokeWidth="1dp"
+                app:cornerRadius="20dp" />
+
+            <View android:layout_width="12dp" android:layout_height="wrap_content" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnApplyFilter"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_apply"
+                android:backgroundTint="@color/appMainColor"
+                android:textColor="@color/white"
+                app:cornerRadius="20dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,85 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot'
+    id 'io.spring.dependency-management'
+}
+
+description = 'Foxtrip Travel Booking System - Main Application'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    mapstructVersion = '1.6.3'
+}
+
+dependencies {
+
+    // Internal modules
+    implementation project(':foxtrip-common')
+    implementation project(':foxtrip-user')
+    implementation project(':foxtrip-location')
+    implementation project(':foxtrip-tour')
+    implementation project(':foxtrip-cart')
+    implementation project(':foxtrip-order')
+    implementation project(':foxtrip-review')
+
+    // Spring Boot starters
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    implementation 'org.springframework.boot:spring-boot-starter-cache'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.5'
+
+    // Database
+    runtimeOnly 'org.postgresql:postgresql'
+    implementation 'org.hibernate.orm:hibernate-spatial'
+    implementation 'org.locationtech.jts:jts-core'
+
+    // Liquibase (auto-run by Spring Boot)
+    implementation 'org.liquibase:liquibase-core'
+
+    // MapStruct
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+
+    // Jackson
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+    // Utilities
+    implementation 'org.apache.commons:commons-lang3'
+
+    // Servlet API (compile only)
+    compileOnly 'jakarta.servlet:jakarta.servlet-api'
+
+    // Development
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // Tests
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.testcontainers:junit-jupiter'
+    testImplementation 'org.testcontainers:postgresql'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+springBoot {
+    mainClass = 'haui.foxtrip.FoxtripApp'
+}
+
+bootRun {
+    args = ['--spring.profiles.active=dev']
+}
+
+test {
+    useJUnitPlatform()
+}

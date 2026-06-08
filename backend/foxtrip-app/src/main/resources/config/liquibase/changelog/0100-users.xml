@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0100-users-table" author="foxtrip">
+        <createTable tableName="users">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="username" type="varchar(50)"><constraints nullable="false"/></column>
+            <column name="email" type="varchar(50)"><constraints nullable="false"/></column>
+            <column name="password_hash" type="varchar(255)"/>
+            <column name="phone_number" type="varchar(10)"/>
+            <column name="province" type="varchar(50)"/>
+            <column name="role" type="varchar(50)" defaultValue="USER"><constraints nullable="false"/></column>
+            <column name="is_verified" type="boolean" defaultValueBoolean="false"><constraints nullable="false"/></column>
+            <column name="avatar_url" type="varchar(512)" defaultValue="https://res.cloudinary.com/do1ill8ba/image/upload/v1775034651/default_image.png"><constraints nullable="false"/></column>
+            <column name="google_id" type="varchar(255)"/>
+            <column name="deleted_at" type="timestamp"/>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="users" columnNames="email" constraintName="uk_users_email"/>
+        <addUniqueConstraint tableName="users" columnNames="phone_number" constraintName="uk_users_phone_number"/>
+        <addUniqueConstraint tableName="users" columnNames="google_id" constraintName="uk_users_google_id"/>
+
+        <!-- Standard B-Tree Indexes -->
+        <sql>CREATE INDEX idx_users_role_active ON users (role, deleted_at);</sql>
+        <sql>CREATE INDEX idx_users_province ON users (province);</sql>
+
+        <!-- GIN Trigram Indexes for Fuzzy Search -->
+        <sql>CREATE INDEX idx_users_username_trgm ON users USING GIN (username gin_trgm_ops);</sql>
+        <sql>CREATE INDEX idx_users_email_trgm ON users USING GIN (email gin_trgm_ops);</sql>
+    </changeSet>
+</databaseChangeLog>

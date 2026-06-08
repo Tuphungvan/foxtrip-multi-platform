@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0400-carts-table" author="foxtrip">
+        <createTable tableName="carts"><column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="user_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="carts" columnNames="user_id" constraintName="uk_carts_user_id"/>
+
+        <addForeignKeyConstraint
+            baseTableName="carts"
+            baseColumnNames="user_id"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            constraintName="fk_carts_users"
+            onDelete="RESTRICT"/>
+    </changeSet>
+
+    <changeSet id="0400-cart-items-table" author="foxtrip">
+        <createTable tableName="cart_items">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="cart_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="tour_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="quantity" type="int" defaultValueNumeric="1"><constraints nullable="false"/></column>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <sql>CREATE INDEX idx_cart_items_cart_id ON cart_items(cart_id);</sql>
+
+        <addForeignKeyConstraint
+            baseTableName="cart_items"
+            baseColumnNames="cart_id"
+            referencedTableName="carts"
+            referencedColumnNames="id"
+            constraintName="fk_cart_items_carts"
+            onDelete="RESTRICT"/>
+
+        <addForeignKeyConstraint
+            baseTableName="cart_items"
+            baseColumnNames="tour_id"
+            referencedTableName="tours"
+            referencedColumnNames="id"
+            constraintName="fk_cart_items_tours"
+            onDelete="RESTRICT"/>
+    </changeSet>
+</databaseChangeLog>

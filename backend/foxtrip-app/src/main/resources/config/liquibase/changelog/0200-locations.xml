@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0200-locations-table" author="foxtrip">
+        <createTable tableName="locations">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="name" type="varchar(255)"><constraints nullable="false"/></column>
+            <column name="province" type="varchar(50)"><constraints nullable="false"/></column>
+            <column name="address" type="text"><constraints nullable="false"/></column>
+            <column name="coordinates" type="geometry(Point, 4326)"><constraints nullable="false"/></column>
+            <column name="mapbox_place_id" type="varchar(255)"/>
+            <column name="type" type="varchar(50)" defaultValue="OTHER"><constraints nullable="false"/></column>
+            <column name="priority" type="int" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="featured_start_at" type="timestamp"/>
+            <column name="featured_end_at" type="timestamp"/>
+            <column name="contact_phone" type="varchar(20)"/>
+            <column name="image_url" type="varchar(512)"><constraints nullable="false"/></column>
+            <column name="deleted_at" type="timestamp"/>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="locations" columnNames="name, province, address" constraintName="uk_locations_identity"/>
+        <addUniqueConstraint tableName="locations" columnNames="mapbox_place_id" constraintName="uk_locations_mapbox_place"/>
+
+        <!-- Standard B-Tree Indexes -->
+        <sql>CREATE INDEX idx_locations_priority_desc ON locations (priority DESC);</sql>
+        <sql>CREATE INDEX idx_locations_type ON locations (type);</sql>
+
+        <!-- Trigram Indexes for Smart Search -->
+        <sql>CREATE INDEX idx_locations_name_trgm ON locations USING gin (name gin_trgm_ops);</sql>
+        <sql>CREATE INDEX idx_locations_address_trgm ON locations USING gin (address gin_trgm_ops);</sql>
+        <sql>CREATE INDEX idx_locations_province_trgm ON locations USING gin (province gin_trgm_ops);</sql>
+
+        <!-- GIST Index for Spatial Search -->
+        <sql>CREATE INDEX idx_locations_geom_gist ON locations USING gist (coordinates);</sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,50 @@
+plugins {
+    id "org.springframework.boot" version "3.4.5" apply false
+    id "io.spring.dependency-management" version "1.1.6" apply false
+}
+
+group = "haui.foxtrip"
+version = "0.0.1-SNAPSHOT"
+
+ext {
+    mapstructVersion = "1.6.3"
+    springBootVersion = "3.4.5"
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects { subproj ->
+    apply plugin: "java-library"
+    apply plugin: "io.spring.dependency-management"
+
+    group = rootProject.group
+    version = rootProject.version
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(21)
+        }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        }
+    }
+
+    dependencies {
+        compileOnly "org.projectlombok:lombok"
+        annotationProcessor "org.projectlombok:lombok"
+        testCompileOnly "org.projectlombok:lombok"
+        testAnnotationProcessor "org.projectlombok:lombok"
+        annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+}

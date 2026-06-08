@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0150-seed-users" author="foxtrip">
+        <insert tableName="users">
+            <column name="username" value="superadmin"/>
+            <column name="email" value="foxtripgroup@gmail.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0859605024"/>
+            <column name="role" value="SUPER_ADMIN"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="admin"/>
+            <column name="email" value="cloneappadobe@gmail.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0901111111"/>
+            <column name="role" value="ADMIN"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        
+        <!-- SEED GUIDES -->
+        <insert tableName="users">
+            <column name="username" value="luwnovel"/>
+            <column name="email" value="luwnovel@gmail.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0903333333"/>
+            <column name="role" value="GUIDE"/>
+            <column name="province" value="HA_NOI"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="guide1"/>
+            <column name="email" value="guide1@foxtrip.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0904444401"/>
+            <column name="role" value="GUIDE"/>
+            <column name="province" value="HUE"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="guide2"/>
+            <column name="email" value="guide2@foxtrip.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0904444402"/>
+            <column name="role" value="GUIDE"/>
+            <column name="province" value="QUANG_NINH"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="guide3"/>
+            <column name="email" value="guide3@foxtrip.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0904444403"/>
+            <column name="role" value="GUIDE"/>
+            <column name="province" value="CAO_BANG"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="guide4"/>
+            <column name="email" value="guide4@foxtrip.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0904444404"/>
+            <column name="role" value="GUIDE"/>
+            <column name="province" value="LANG_SON"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="guide5"/>
+            <column name="email" value="guide5@foxtrip.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0904444405"/>
+            <column name="role" value="GUIDE"/>
+            <column name="province" value="DA_NANG"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="guide6"/>
+            <column name="email" value="guide6@foxtrip.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0904444406"/>
+            <column name="role" value="GUIDE"/>
+            <column name="province" value="TPHCM"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="guide7"/>
+            <column name="email" value="guide7@foxtrip.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0904444407"/>
+            <column name="role" value="GUIDE"/>
+            <column name="province" value="CAN_THO"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="guide8"/>
+            <column name="email" value="guide8@foxtrip.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0904444408"/>
+            <column name="role" value="GUIDE"/>
+            <column name="province" value="LAM_DONG"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+        <insert tableName="users">
+            <column name="username" value="guide9"/>
+            <column name="email" value="guide9@foxtrip.com"/>
+            <column name="password_hash" valueComputed="crypt('Foxtrip26@', gen_salt('bf'))"/>
+            <column name="phone_number" value="0904444409"/>
+            <column name="role" value="GUIDE"/>
+            <column name="province" value="KHANH_HOA"/>
+            <column name="is_verified" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- 3 ô vuông góc (marker) -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M2,2h6v6H2z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M16,2h6v6h-6z" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M2,16h6v6H2z" />
+
+    <!-- viền trắng bên trong 3 marker để trông giống QR marker -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M3.5,3.5h3v3h-3z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M17.5,3.5h3v3h-3z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M3.5,17.5h3v3h-3z" />
+
+    <!-- các ô nhỏ mô phỏng pattern QR -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M10,5h1.5v1.5H10z M13.5,5h1.5v1.5h-1.5z
+                          M10,8.5h1.5v1.5H10z M13.5,8.5h1.5v1.5h-1.5z
+                          M10,12h1.5v1.5H10z M13.5,12h1.5v1.5h-1.5z
+                          M16,12h1.5v1.5H16z M12,16h1.5v1.5H12z
+                          M16,16h1.5v1.5H16z M8,10h1.5v1.5H8z" />
+
+</vector>

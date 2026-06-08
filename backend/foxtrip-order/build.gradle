@@ -1,0 +1,68 @@
+plugins {
+    id 'java-library'
+}
+
+description = 'Foxtrip Travel Booking System - Order & Payment Module'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Internal dependencies
+    api project(':foxtrip-common')
+    implementation project(':foxtrip-tour')
+    implementation project(':foxtrip-user')
+    implementation project(':foxtrip-cart')
+
+    // Spring Data JPA
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Spring Web
+    implementation 'org.springframework:spring-web'
+    implementation 'org.springframework:spring-webmvc'
+
+    // Servlet API
+    compileOnly 'jakarta.servlet:jakarta.servlet-api'
+
+    // Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Email
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    // ZXing for QR Code
+    implementation 'com.google.zxing:core:3.5.1'
+    implementation 'com.google.zxing:javase:3.5.1'
+
+    // Apache Commons Codec (for HMAC)
+    implementation 'commons-codec:commons-codec:1.15'
+
+    // MapStruct
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+    
+    // Annotation processors
+    annotationProcessor 'org.hibernate.orm:hibernate-jpamodelgen'
+
+    // Test dependencies
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-core'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+
+
+

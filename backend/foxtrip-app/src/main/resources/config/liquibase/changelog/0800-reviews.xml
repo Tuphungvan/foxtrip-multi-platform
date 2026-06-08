@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0800-reviews-table" author="foxtrip">
+        <createTable tableName="reviews">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="user_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="tour_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="rating" type="int"><constraints nullable="false"/></column>
+            <column name="content" type="text"/>
+            <column name="edited_at" type="timestamp"/>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="reviews" columnNames="user_id, tour_id" constraintName="uk_reviews_user_tour"/>
+
+        <addForeignKeyConstraint
+            baseTableName="reviews"
+            baseColumnNames="user_id"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            constraintName="fk_reviews_users"
+            onDelete="RESTRICT"/>
+
+        <addForeignKeyConstraint
+            baseTableName="reviews"
+            baseColumnNames="tour_id"
+            referencedTableName="tours"
+            referencedColumnNames="id"
+            constraintName="fk_reviews_tours"
+            onDelete="RESTRICT"/>
+
+        <sql>CREATE INDEX idx_reviews_tour_time ON reviews(tour_id, created_at);</sql>
+    </changeSet>
+
+</databaseChangeLog>

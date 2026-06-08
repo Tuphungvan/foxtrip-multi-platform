@@ -1,0 +1,50 @@
+name: foxtrip
+
+services:
+  postgresql:
+    image: postgis/postgis:17-3.5
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: foxtrip
+      POSTGRES_PASSWORD: foxtrip
+      POSTGRES_DB: foxtrip
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: foxtrip
+      RABBITMQ_DEFAULT_PASS: foxtrip
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  redis:
+    image: redis:7-alpine
+    command: redis-server --appendonly yes --maxmemory 256mb --maxmemory-policy allkeys-lru --requirepass foxtrip123
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui:latest
+    restart: unless-stopped
+    ports:
+      - "8083:8080"
+    environment:
+      API_URL: http://host.docker.internal:8080/v3/api-docs
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  postgresql_data:
+  rabbitmq_data:
+  redis_data:

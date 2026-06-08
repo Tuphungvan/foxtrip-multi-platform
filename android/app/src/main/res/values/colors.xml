@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#FF6600</color>
+    <color name="primaryDark">#E65C00</color>
+    <color name="accentColor">#FFA500</color>
+    <color name="price_color">#F0660B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#666666</color>
+    <color name="little_text_color">#8C8C8C</color>
+    <color name="big_text_color">#414141</color>
+    <color name="background_light">#F5F5F5</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="teal_200">#03DAC5</color>
+    <color name="appMainColor">#129AF2</color>
+    <color name="sky_blue_light">#81D1FF</color>
+    <color name="weight_gray">#A09F9F</color>
+    <color name="light_gray">#BDBCBC</color>
+    <color name="stoke_color">#A5D8FF</color>
+    <color name="notification_color">#888888</color>
+    <color name="frame_background">#66000000</color>
+    <color name="warning_color">#FF9800</color>
+    <color name="success_color">#4CAF50</color>
+    <color name="danger_color">#F44336</color>
+
+    <color name="primary">@color/primaryColor</color>
+    <color name="textPrimary">@color/big_text_color</color>
+    <color name="textSecondary">@color/little_text_color</color>
+    <color name="background_dark">#EAEAEA</color>
+</resources>

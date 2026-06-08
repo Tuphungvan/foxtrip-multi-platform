@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- String.format số tiền VND dùng locale mặc định là hoàn toàn chủ ý,
+         vì app chỉ target thị trường Việt Nam. -->
+    <issue id="DefaultLocale" severity="ignore" />
+
+    <!-- SuspiciousIndentation: đã được fix trực tiếp trong code. -->
+    <issue id="SuspiciousIndentation" severity="warning" />
+</lint>

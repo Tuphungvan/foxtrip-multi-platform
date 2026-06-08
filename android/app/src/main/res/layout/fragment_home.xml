@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/topContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_top_container_rounded"
+        android:paddingTop="24dp"
+        android:paddingBottom="12dp"
+        android:paddingHorizontal="12dp"
+        android:gravity="center_vertical">
+
+        <EditText
+            android:id="@+id/search_input"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:hint="🔍 Tìm tour..."
+            android:textSize="13sp"
+            android:textColor="@color/gray"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingHorizontal="12dp"
+            android:background="@drawable/bg_search_simple"
+            android:singleLine="true" />
+
+        <ImageView
+            android:id="@+id/btnFilter"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:src="@android:drawable/ic_menu_search"
+            android:background="@drawable/bg_button_white_stroke"
+            app:tint="@color/white"
+            android:padding="8dp" />
+
+        <ImageView
+            android:id="@+id/btnToggleView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="4dp"
+            android:src="@android:drawable/ic_dialog_map"
+            android:background="@drawable/bg_button_white_stroke"
+            app:tint="@color/white"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutNotLoggedIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFF9C4"
+        android:padding="12dp"
+        android:visibility="gone"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Bạn chưa đăng nhập. Đăng nhập để trải nghiệm đầy đủ."
+            android:textColor="#F57F17"
+            android:textSize="13sp" />
+        <Button
+            android:id="@+id/btnLoginHome"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="Đăng nhập"
+            android:textSize="12sp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:textColor="@color/appMainColor" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <!-- NORMAL MODE CONTENT -->
+        <LinearLayout
+            android:id="@+id/layoutNormalMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tour giảm giá"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:drawablePadding="8dp"
+                app:drawableTint="@color/appMainColor"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDiscounted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tour mới nhất"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:drawablePadding="8dp"
+                app:drawableTint="@color/appMainColor"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvUpcoming"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+
+            <!-- SEE ALL BUTTON -->
+            <TextView
+                android:id="@+id/btnSeeAll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khám phá tất cả tour →"
+                android:textColor="@color/appMainColor"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
+                android:padding="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="?attr/selectableItemBackground" />
+
+            <!-- BRANDING SECTION -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#EEEEEE"
+                android:layout_marginTop="24dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Vì sao bạn nên chọn FoxTrip?"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_horizontal"/>
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"
+                android:layout_marginBottom="32dp">
+
+                <!-- Branding Item 1 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/possibilities" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đa dạng lựa chọn"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="8dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tour phong phú"
+                        android:textSize="11sp"
+                        android:gravity="center"
+                        android:textColor="@color/gray"/>
+                </LinearLayout>
+
+                <!-- Branding Item 2 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/vouchers" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chơi vui giá tốt"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="8dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nhiều ưu đãi"
+                        android:textSize="11sp"
+                        android:gravity="center"
+                        android:textColor="@color/gray"/>
+                </LinearLayout>
+
+                <!-- Branding Item 3 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/phone" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Tiện lợi"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="8dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Thao tác nhanh gọn"
+                        android:textSize="11sp"
+                        android:gravity="center"
+                        android:textColor="@color/gray"/>
+                </LinearLayout>
+
+                <!-- Branding Item 4 -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/review" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đáng tin cậy"
+                        android:textStyle="bold"
+                        android:textSize="13sp"
+                        android:textColor="@color/black"
+                        android:layout_marginTop="8dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hỗ trợ tận tình"
+                        android:textSize="11sp"
+                        android:gravity="center"
+                        android:textColor="@color/gray"/>
+                </LinearLayout>
+            </GridLayout>
+        </LinearLayout>
+
+        <!-- SEARCH MODE CONTENT -->
+        <LinearLayout
+            android:id="@+id/layoutSearchMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kết quả tìm kiếm"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:drawableStart="@android:drawable/ic_menu_search"
+                android:drawablePadding="8dp"
+                app:drawableTint="@color/appMainColor"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
+        </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

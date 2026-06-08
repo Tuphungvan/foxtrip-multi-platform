@@ -1,0 +1,121 @@
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USERNAME:foxtrip}
+    password: ${RABBITMQ_PASSWORD:foxtrip}
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 3s
+          max-attempts: 3
+          max-interval: 10s
+          multiplier: 2.0
+
+  application:
+    name: foxtrip
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/foxtrip
+    username: foxtrip
+    password: foxtrip
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+  task:
+    scheduling:
+      time-zone: Asia/Ho_Chi_Minh
+  jackson:
+    time-zone: UTC
+    deserialization:
+      adjust-dates-to-context-time-zone: false
+
+  liquibase:
+    change-log: classpath:config/liquibase/master.xml
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: foxtrip123
+
+  devtools:
+    restart:
+      enabled: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: [EMAIL_ADDRESS]
+    password: "[PASSWORD]"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    from: [EMAIL_ADDRESS]
+
+server:
+  port: 8080
+
+application:
+  async:
+    core-pool-size: 8
+    max-pool-size: 16
+    queue-capacity: 500
+    keep-alive-seconds: 60
+  auth:
+    google:
+      client-id: ""
+  cloudinary:
+    cloud-name: ""
+    api-key: ""
+    api-secret: ""
+  jwt:
+    access-token-validity-seconds: 1800
+    refresh-token-validity-seconds: 604800
+    public-key: ""
+    private-key: ""
+
+logging:
+  level:
+    haui.foxtrip: DEBUG
+    org.hibernate.SQL: DEBUG
+
+foxtrip:
+  vnpay:
+    tmn-code: ${VNPAY_TMN_CODE:}
+    hash-secret: ${VNPAY_HASH_SECRET:}
+    url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+    return-url: ${VNPAY_RETURN_URL:http://10.18.72.224:8080/api/payments/vnpay/return}
+    ipn-url: ${VNPAY_IPN_URL:http://10.18.72.224:8080/api/payments/vnpay/ipn}
+  qr:
+    secret-key: ${QR_SECRET_KEY:}
+  order:
+    expiration-hours: 24
+  groq:
+    api-key: ${GROQ_API_KEY:}
+    api-url: https://api.groq.com/openai/v1/chat/completions
+    model: llama-3.1-8b-instant
+  rabbitmq:
+    exchange: "foxtrip.exchange"
+    queues:
+      payment-success: "foxtrip.payment.success.queue"
+      tour-terminated: "foxtrip.tour.terminated.queue"
+    routing-keys:
+      payment-success: "foxtrip.payment.success.key"
+      tour-terminated: "foxtrip.tour.terminated.key"
+  goong:
+    api-key: ${GOONG_API_KEY:}
+    map-key: ${GOONG_MAP_KEY:}
+    api-url: https://rsapi.goong.io

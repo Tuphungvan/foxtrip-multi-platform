@@ -1,0 +1,35 @@
+plugins {
+    id "java-library"
+}
+
+dependencies {
+    // Spring Boot BOM for version management
+    api platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+
+    // JPA / Hibernate (API exposure for domain entities)
+    api "jakarta.persistence:jakarta.persistence-api"
+    api "jakarta.validation:jakarta.validation-api"
+    api "org.hibernate.orm:hibernate-core"
+
+    // Spring Data JPA (for AuditingEntityListener, etc.)
+    api "org.springframework.data:spring-data-jpa"
+
+    // Spring Security
+    api "org.springframework.boot:spring-boot-starter-oauth2-resource-server"
+
+    // RabbitMQ
+    api 'org.springframework.boot:spring-boot-starter-amqp'
+
+    // Jackson
+    api "com.fasterxml.jackson.core:jackson-annotations"
+
+    // Apache Commons
+    api "org.apache.commons:commons-lang3"
+
+    // UUID v7 generator
+    api "com.fasterxml.uuid:java-uuid-generator:5.1.0"
+
+    // Annotation processors
+    annotationProcessor platform("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
+    annotationProcessor "org.hibernate.orm:hibernate-jpamodelgen"
+}

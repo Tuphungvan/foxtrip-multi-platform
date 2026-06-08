@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="floatType" value="float4" dbms="postgresql"/>
+    <property name="clobType" value="clob" dbms="postgresql"/>
+    <property name="blobType" value="blob" dbms="postgresql"/>
+    <property name="uuidType" value="uuid" dbms="postgresql"/>
+    <property name="datetimeType" value="datetime" dbms="postgresql"/>
+    <property name="timeType" value="time(6)" dbms="postgresql"/>
+
+    <changeSet id="0001-set-db-timezone" author="codex" dbms="postgresql" runInTransaction="false">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="foxtrip">SELECT current_database()</sqlCheck>
+        </preConditions>
+        <sql>ALTER DATABASE foxtrip SET timezone TO 'UTC';</sql>
+    </changeSet>
+
+    <include file="config/liquibase/changelog/0000-extensions.xml"/>
+    <include file="config/liquibase/changelog/0100-users.xml"/>
+    <include file="config/liquibase/changelog/0150-users-seed.xml"/>
+    <include file="config/liquibase/changelog/0200-locations.xml"/>
+    <include file="config/liquibase/changelog/0300-tours.xml"/>
+    <include file="config/liquibase/changelog/0400-carts.xml"/>
+    <include file="config/liquibase/changelog/0500-orders.xml"/>
+    <include file="config/liquibase/changelog/0800-reviews.xml"/>
+    <include file="config/liquibase/changelog/0900-revenue.xml"/>
+    <include file="config/liquibase/changelog/0901-revenue-fake-data.xml"/>
+    <include file="config/liquibase/changelog/1100-tour-setup-step.xml"/>
+</databaseChangeLog>

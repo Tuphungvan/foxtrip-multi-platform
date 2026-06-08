@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="36dp">
+
+            <!-- Nút quay lại -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp">
+
+                <ImageButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_arrow_back"
+                    android:contentDescription="Back" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Chi tiết đơn hàng"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/big_text_color"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- Thông tin đơn hàng -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/stoke_color"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Thông tin đơn hàng"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/big_text_color"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Mã đơn hàng -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Mã đơn:"
+                            android:textSize="14sp"
+                            android:textColor="@color/little_text_color"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvOrderId"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/big_text_color"/>
+                    </LinearLayout>
+
+                    <!-- Trạng thái -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Trạng thái:"
+                            android:textSize="14sp"
+                            android:textColor="@color/little_text_color"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvStatus"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/appMainColor"/>
+                    </LinearLayout>
+
+                    <!-- Tổng tiền -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Tổng tiền:"
+                            android:textSize="14sp"
+                            android:textColor="@color/little_text_color"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvTotal"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="0 đ"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/price_color"/>
+                    </LinearLayout>
+
+                    <!-- Ngày tạo -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Ngày tạo:"
+                            android:textSize="14sp"
+                            android:textColor="@color/little_text_color"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvCreatedAt"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="14sp"
+                            android:textColor="@color/big_text_color"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            
+            <!-- Mã QR Check-in -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardQR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/stoke_color"
+                app:cardBackgroundColor="@android:color/white"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:gravity="center">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mã Check-in"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/big_text_color"
+                        android:layout_marginBottom="12dp"/>
+
+                    <ImageView
+                        android:id="@+id/ivQRCode"
+                        android:layout_width="180dp"
+                        android:layout_height="180dp"
+                        android:scaleType="fitCenter"
+                        android:layout_marginBottom="8dp"/>
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đưa mã này cho Hướng dẫn viên khi bắt đầu Tour"
+                        android:textSize="12sp"
+                        android:textColor="@color/little_text_color"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Thông tin người nhận -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:strokeWidth="1dp"
+                app:strokeColor="@color/stoke_color"
+                app:cardBackgroundColor="@android:color/white">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Thông tin người nhận"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/big_text_color"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Họ tên -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Họ và tên:"
+                            android:textSize="14sp"
+                            android:textColor="@color/little_text_color"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvName"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="14sp"
+                            android:textColor="@color/big_text_color"/>
+                    </LinearLayout>
+
+                    <!-- Số điện thoại -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Điện thoại:"
+                            android:textSize="14sp"
+                            android:textColor="@color/little_text_color"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvPhone"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="14sp"
+                            android:textColor="@color/big_text_color"/>
+                    </LinearLayout>
+
+                    <!-- Email -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Email:"
+                            android:textSize="14sp"
+                            android:textColor="@color/little_text_color"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tvEmail"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:text="—"
+                            android:textSize="14sp"
+                            android:textColor="@color/big_text_color"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Danh sách sản phẩm -->
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sản phẩm đã đặt"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="@color/big_text_color"
+                android:layout_marginBottom="8dp"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:overScrollMode="ifContentScrolls"
+                android:nestedScrollingEnabled="false"/>
+
+            <!-- Buttons hành động -->
+            <LinearLayout
+                android:id="@+id/llActionButtons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="24dp"
+                android:visibility="gone">
+
+                <!-- Nút Hủy đơn (chỉ hiện khi PAID và trong thời hạn) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCancelOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Yêu cầu hủy đơn hàng"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="#F44336"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:cornerRadius="16dp"/>
+
+                <!-- Nút Đánh giá (chỉ hiện khi COMPLETED và chưa review) -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnReview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="★ Viết đánh giá"
+                    android:backgroundTint="@color/appMainColor"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:cornerRadius="16dp"/>
+
+                <!-- Nút Thanh toán ngay -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPayNow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Thanh toán ngay qua VNPay"
+                    android:backgroundTint="@color/success_color"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    app:cornerRadius="16dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Progress overlay -->
+    <FrameLayout
+        android:id="@+id/progressOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#66000000"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:indeterminateTint="@color/appMainColor"
+            android:layout_gravity="center"/>
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

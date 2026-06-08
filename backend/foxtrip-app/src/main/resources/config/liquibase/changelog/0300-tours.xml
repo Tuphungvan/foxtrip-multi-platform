@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="0300-tours-table" author="foxtrip">
+        <createTable tableName="tours">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="name" type="varchar(255)"><constraints nullable="false"/></column>
+            <column name="slug" type="varchar(255)"><constraints nullable="false"/></column>
+            <column name="description" type="text"><constraints nullable="false"/></column>
+            <column name="province" type="varchar(50)"><constraints nullable="false"/></column>
+            <column name="category" type="varchar(50)"><constraints nullable="false"/></column>
+            <column name="short_id" type="varchar(50)"><constraints nullable="false"/></column>
+            <column name="thumbnail_url" type="varchar(512)"><constraints nullable="false"/></column>
+            <column name="price" type="decimal(15,2)"><constraints nullable="false"/></column>
+            <column name="discount" type="decimal(15,2)" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="slots" type="int"><constraints nullable="false"/></column>
+            <column name="available_slots" type="int"><constraints nullable="false"/></column>
+            <column name="guide_id" type="${uuidType}"/>
+            <column name="start_date" type="timestamp"><constraints nullable="false"/></column>
+            <column name="end_date" type="timestamp"><constraints nullable="false"/></column>
+            <column name="status" type="varchar(50)" defaultValue="HIDDEN"><constraints nullable="false"/></column>
+            <column name="review_count" type="int" defaultValueNumeric="0"><constraints nullable="false"/></column>
+            <column name="average_rating" type="decimal(3,2)"/>
+            <column name="deleted_at" type="timestamp"/>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="tours" columnNames="slug" constraintName="idx_tours_slug"/>
+        <addUniqueConstraint tableName="tours" columnNames="short_id" constraintName="uk_tours_short_id"/>
+
+        <sql><![CDATA[ALTER TABLE tours ADD CONSTRAINT ck_tours_slots_positive CHECK (slots > 0);]]></sql>
+        <sql><![CDATA[ALTER TABLE tours ADD CONSTRAINT ck_tours_available_slots CHECK (available_slots >= 0 AND available_slots <= slots);]]></sql>
+        <sql><![CDATA[ALTER TABLE tours ADD CONSTRAINT ck_tours_category_enum CHECK (category IN ('SEA','CULTURE','NATURE','RELAX'));]]></sql>
+        <sql><![CDATA[ALTER TABLE tours ADD CONSTRAINT ck_tours_status_enum CHECK (status IN ('ACTIVE','HIDDEN','ONGOING','CANCELLED','COMPLETED'));]]></sql>
+
+        <!-- Single Column Indexes -->
+        <sql>CREATE INDEX idx_tours_status ON tours(status);</sql>
+        <sql>CREATE INDEX idx_tours_start_date ON tours(start_date);</sql>
+        <sql>CREATE INDEX idx_tours_end_date ON tours(end_date);</sql>
+        <sql>CREATE INDEX idx_tours_province ON tours(province);</sql>
+        <sql>CREATE INDEX idx_tours_category ON tours(category);</sql>
+        <sql>CREATE INDEX idx_tours_price ON tours(price);</sql>
+        <sql>CREATE INDEX idx_tours_available_slots ON tours(available_slots);</sql>
+        <sql>CREATE INDEX idx_tours_deleted_at ON tours(deleted_at);</sql>
+
+        <!-- Composite Indexes -->
+        <sql>CREATE INDEX idx_tours_guide_schedule ON tours(guide_id, start_date, end_date);</sql>
+
+        <!-- Trigram Index for Fuzzy Search -->
+        <sql>CREATE INDEX idx_tours_name_trgm ON tours USING gin (name gin_trgm_ops);</sql>
+    </changeSet>
+
+    <changeSet id="0300-tour-itineraries-table" author="foxtrip">
+        <createTable tableName="tour_itineraries">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="tour_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="location_id" type="${uuidType}"/>
+            <column name="day_number" type="int"><constraints nullable="false"/></column>
+            <column name="position" type="int"><constraints nullable="false"/></column>
+            <column name="activity" type="text"><constraints nullable="false"/></column>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="tour_itineraries" columnNames="tour_id, day_number, position" constraintName="uk_itinerary_order"/>
+
+        <addForeignKeyConstraint
+            baseTableName="tour_itineraries"
+            baseColumnNames="tour_id"
+            referencedTableName="tours"
+            referencedColumnNames="id"
+            constraintName="fk_itinerary_tours"
+            onDelete="RESTRICT"/>
+
+        <addForeignKeyConstraint
+            baseTableName="tour_itineraries"
+            baseColumnNames="location_id"
+            referencedTableName="locations"
+            referencedColumnNames="id"
+            constraintName="fk_itinerary_locations"
+            onDelete="SET NULL"/>
+
+        <!-- Index for Foreign Keys -->
+        <sql>CREATE INDEX idx_itinerary_location_id ON tour_itineraries(location_id);</sql>
+    </changeSet>
+
+    <changeSet id="0300-tour-addons-table" author="foxtrip">
+        <createTable tableName="tour_addons">
+            <column name="id" type="${uuidType}" defaultValueComputed="public.uuid_generate_v7()"><constraints primaryKey="true" nullable="false"/></column>
+            <column name="tour_id" type="${uuidType}"><constraints nullable="false"/></column>
+            <column name="location_id" type="${uuidType}"/>
+            <column name="name" type="varchar(255)"><constraints nullable="false"/></column>
+            <column name="description" type="text"><constraints nullable="false"/></column>
+            <column name="price" type="decimal(15,2)"><constraints nullable="false"/></column>
+            <column name="is_active" type="boolean" defaultValueBoolean="true"><constraints nullable="false"/></column>
+            <column name="created_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="${now}"><constraints nullable="false"/></column>
+            <column name="created_by" type="varchar(255)"/>
+            <column name="updated_by" type="varchar(255)"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="tour_addons" columnNames="tour_id, name" constraintName="uk_tour_addons_tour_name"/>
+
+        <addForeignKeyConstraint
+            baseTableName="tour_addons"
+            baseColumnNames="tour_id"
+            referencedTableName="tours"
+            referencedColumnNames="id"
+            constraintName="fk_tour_addons_tours"
+            onDelete="RESTRICT"/>
+
+        <addForeignKeyConstraint
+            baseTableName="tour_addons"
+            baseColumnNames="location_id"
+            referencedTableName="locations"
+            referencedColumnNames="id"
+            constraintName="fk_tour_addons_locations"
+            onDelete="SET NULL"/>
+
+        <sql>CREATE INDEX idx_tour_addons_tour_id ON tour_addons(tour_id);</sql>
+
+        <addForeignKeyConstraint
+            baseTableName="tours"
+            baseColumnNames="guide_id"
+            referencedTableName="users"
+            referencedColumnNames="id"
+            constraintName="fk_tours_guide"
+            onDelete="SET NULL"/>
+    </changeSet>
+
+    <changeSet id="0301-alter-short-url" author="foxtrip">
+        <modifyDataType
+                tableName="tours"
+                columnName="short_id"
+                newDataType="varchar(512)"/>
+    </changeSet>
+</databaseChangeLog>

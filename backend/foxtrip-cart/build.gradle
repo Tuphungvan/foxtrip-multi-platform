@@ -1,0 +1,58 @@
+plugins {
+    id 'java-library'
+}
+
+description = 'Foxtrip Travel Booking System - Cart Module'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Internal dependency on common module
+    api project(':foxtrip-common')
+
+    // Internal dependency on tour module (for Tour, TourAddon entities)
+    implementation project(':foxtrip-tour')
+
+    // Spring Data JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Spring Web
+    implementation 'org.springframework:spring-web'
+    implementation 'org.springframework:spring-webmvc'
+
+    // Servlet API
+    compileOnly 'jakarta.servlet:jakarta.servlet-api'
+
+    // Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // Spring Security (for @PreAuthorize)
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // MapStruct
+    implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    // Annotation processors
+    annotationProcessor 'org.hibernate.orm:hibernate-jpamodelgen'
+
+    // Test dependencies
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-core'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+
+
+
